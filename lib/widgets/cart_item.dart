@@ -20,7 +20,7 @@ class CartItem extends StatelessWidget {
     return Dismissible(
       key: ValueKey(id),
       background: Container(
-        color: Theme.of(context).errorColor,
+        color: Colors.red,
         child: Icon(
           Icons.delete,
           color: Colors.white,
