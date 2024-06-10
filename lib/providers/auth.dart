@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shop_app/widgets/user_product_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../widgets/user_product_item.dart';
 import '../models/http_exception.dart';
 
 class Auth with ChangeNotifier {
@@ -57,6 +58,18 @@ class Auth with ChangeNotifier {
       );
       _autoLogout();
       notifyListeners();
+      final prefs = await SharedPreferences.getInstance();
+      final userData = json.encode(
+        {
+          'token': _token,
+          'userId': _userId,
+          'expiryDate': _expiryDate!.toIso8601String(),
+        },
+      );
+      print('Saving user data: $userData');
+      prefs.setString('userData', userData);
+      // String? savedData = prefs.getString('userData');
+      // print('Saved user data from SharedPreferences: $savedData');
     } catch (error) {
       throw error;
     }
@@ -71,7 +84,31 @@ class Auth with ChangeNotifier {
     return _authenticate(email, password, 'signInWithPassword');
   }
 
-  void logout() {
+  Future<bool> tryAutoLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey('userData')) {
+      // print('No user data found');
+      return false;
+    }
+//HERE IS THE SHORTCOMING
+    final extractedUserData =
+        json.decode(prefs.getString('userData')!) as Map<String, dynamic>;
+    final expiryDate =
+        DateTime.parse(extractedUserData['expiryDate'] as String);
+    if (expiryDate.isBefore(DateTime.now())) {
+      print('Token has expired');
+      return false;
+    }
+    _token = extractedUserData['token'] as String;
+    _userId = extractedUserData['userId'] as String;
+    _expiryDate = expiryDate;
+    notifyListeners();
+    _autoLogout();
+    print('Auto login successful');
+    return true;
+  }
+
+  Future<void> logout() async {
     _token = null;
     _userId = null;
     _expiryDate = null;
@@ -80,6 +117,8 @@ class Auth with ChangeNotifier {
       _authTimer = null;
     }
     notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
   }
 
   void _autoLogout() {
