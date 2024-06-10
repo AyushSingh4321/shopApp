@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shop_app/widgets/user_product_item.dart';
 import '../models/http_exception.dart';
 
 class Auth with ChangeNotifier {
@@ -19,6 +20,10 @@ class Auth with ChangeNotifier {
       return _token;
     }
     return null;
+  }
+
+  String? get userId {
+    return _userId;
   }
 
   Future<void> _authenticate(
