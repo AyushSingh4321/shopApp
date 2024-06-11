@@ -90,7 +90,7 @@ class Auth with ChangeNotifier {
       // print('No user data found');
       return false;
     }
-//HERE IS THE SHORTCOMING
+//HERE IS THE SHORTCOMING.....HAHAHAHHA Resolved
     final extractedUserData =
         json.decode(prefs.getString('userData')!) as Map<String, dynamic>;
     final expiryDate =
