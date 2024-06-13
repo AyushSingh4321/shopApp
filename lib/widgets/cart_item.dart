@@ -46,9 +46,11 @@ class CartItem extends StatelessWidget {
                     Navigator.of(ctx).pop(true);
                   },
                   child: Text('Yes')),
-              TextButton(onPressed: () {
-                Navigator.of(ctx).pop(false);
-              }, child: Text('No')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop(false);
+                  },
+                  child: Text('No')),
             ],
           ),
         );
@@ -79,11 +81,23 @@ class CartItem extends StatelessWidget {
             ),
             title: Text(title),
             subtitle: Text('Total: \$${(price * quantity)}'),
-            trailing: Text(
-              '$quantity x',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
+            trailing: SizedBox(
+              width: 100,
+              child: Row(
+                children: [
+                  Text(
+                    '$quantity x',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Icon(Icons.arrow_back_outlined),
+                  Icon(Icons.delete_outline),
+                ],
               ),
             ),
             // trailing: Row(
