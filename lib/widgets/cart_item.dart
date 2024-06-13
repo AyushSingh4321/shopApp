@@ -84,6 +84,7 @@ class CartItem extends StatelessWidget {
             trailing: SizedBox(
               width: 100,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
                     '$quantity x',
