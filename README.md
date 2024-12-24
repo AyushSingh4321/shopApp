@@ -19,7 +19,14 @@
 <br> <br>
 <div align="center">
 <img src="https://github.com/AyushSingh4321/mealsApp/assets/156438001/1a0cc341-7477-4403-a1c6-371f0da1cb31" alt="project-screenshot" width="400" height="700/" style="margin : 60px ; ">
+<img src="https://github.com/user-attachments/assets/792c3abf-46c4-41e6-86b4-5add73a40c50" alt="project-screenshot" width="400" height="700/" style="margin : 60px ; ">
 
+</div>
+<br> <br>
+<div align="center">
+
+
+<img src="https://github.com/user-attachments/assets/9b5063cc-7ff2-4549-bdc9-cf25a224b6ae" alt="project-screenshot" width="400" height="700/" style="margin : 60px ; ">
 <img src="https://github.com/AyushSingh4321/mealsApp/assets/156438001/6723575a-ffe6-4c11-8216-839d1e202c13" alt="project-screenshot" width="400" height="700/" style="margin : 60px ; ">
 </div>
 <br> <br>
@@ -37,6 +44,7 @@
 Here're some of the project's best features:
 
 *   User Authentication
+*   Payment Gateway
 *   Product Management
 *   Cart Functionality
 *   Order Processing
@@ -75,7 +83,8 @@ Technologies used in the project:
 
 *   Flutter
 *   Dart
-*   Android Studio
+*   RazorPay
 *   Firebase
 *   Git
 *   GitHub
+*   Android Studio
