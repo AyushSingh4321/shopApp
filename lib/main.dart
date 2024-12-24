@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import './razorpay_payment.dart';
 import './screens/splash_screen.dart';
 import './providers/auth.dart';
 import './screens/edit_product_screen.dart';
@@ -16,6 +17,7 @@ import './helpers/custom_route.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -60,7 +62,8 @@ class MyApp extends StatelessWidget {
               TargetPlatform.iOS :CustomPageTransitionBuilder(),
             })
           ),
-          home: auth.isAuth
+          // home:RazorPayPage(),
+          home:  auth.isAuth
               ? ProductsOverviewScreen()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
@@ -76,6 +79,7 @@ class MyApp extends StatelessWidget {
             OrdersScreen.routeName: (ctx) => OrdersScreen(),
             UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
             EditProductScreen.routeName: (ctx) => EditProductScreen(),
+           
           },
         ),
       ),

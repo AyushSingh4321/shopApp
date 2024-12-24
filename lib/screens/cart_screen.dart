@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/razorpay_payment.dart';
 import '../providers/cart.dart' show Cart;
 import '../widgets/cart_item.dart'; // as ci;
 import '../providers/orders.dart';
@@ -76,6 +77,7 @@ class OrderButton extends StatefulWidget {
 
 class _OrderButtonState extends State<OrderButton> {
   var _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -88,18 +90,20 @@ class _OrderButtonState extends State<OrderButton> {
       onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
           ? null
           : () async {
-              setState(() {
-                _isLoading = true;
-              });
-              await Provider.of<Orders>(context, listen: false).addOrder(
-                widget.cart.items.values
-                    .toList(), //to pass the values of the map(items)
-                widget.cart.totalAmount,
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => RazorPayPage(
+                    amount: widget.cart.totalAmount,
+                    onSuccess: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                        widget.cart.items.values.toList(),
+                        widget.cart.totalAmount,
+                      );
+                      widget.cart.clear();
+                    },
+                  ),
+                ),
               );
-              setState(() {
-                _isLoading = false;
-              });
-              widget.cart.clear();
             },
     );
   }
